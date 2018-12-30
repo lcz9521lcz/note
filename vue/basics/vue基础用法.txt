@@ -1,0 +1,18 @@
+vue就是一个js文件而已
+
+1.新建HTML页面, 引入vue.js文件
+	例:   <script src="./lib/vue-2.4.0.js"></script>
+2.在页面中准备一个Vue的控制区域
+	例:   <div id="app"></div>
+3.创建Vue实例
+	例:   var  vm = new Vue({
+  		el: '#app',   //连接控制区域
+  		data: {
+   		       hello: '你好啊vuejs!'
+  		}
+	       })
+4.在app控制区域中使用vue的指令或者插值表达式将hello数据渲染到页面
+	例:   插值表达式:   {{ hello }}
+	        指令:   <p v-text="hello"></p>
+		   <p v-html="hello"></p>
+	如果hello数据中有HTML标签, v-html会解析HTML标签, 而v-text会直接将其解析成纯文本输出
