@@ -1,0 +1,32 @@
+事件修饰符是由点开头的指令后缀来表示的
+事件修饰符在事件绑定时, 加在事件名后面
+	例:   <input @click.stop="roll" type="button" value="动起来">
+
+事件修饰符可以串联加多个
+	例:   <input @click.stop.prevent="roll" type="button" value="动起来">
+
+1.阻止冒泡
+	.stop
+
+2.阻止浏览器默认行为
+	.prevent
+
+3.使用捕获, 等同于 addEventListener() 第三个参数传入true的效果
+	.capture
+
+4.只有点击当前元素自身才会触发事件, 如果通过冒泡或者捕获传递过来的事件不会触发
+	.self
+
+5.只触发一次   **新增修饰符**
+	.once   点击事件将只会触发一次
+	例:   <a v-on:click.once="doThis"></a>
+	注意:   不像其它只能对原生的 DOM 事件起作用的修饰符，.once 修饰符还能被用到自定义的组件事件上	
+
+6.在移动端使用scroll事件时建议加上, 可以提高性能
+	.passive
+
+注意:   1.使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生
+	例:   v-on:click.prevent.self 会阻止所有的点击
+	       v-on:click.self.prevent 只会阻止对元素自身的点击
+
+          2.不要把 .passive 和 .prevent 一起使用，因为 .prevent 将会被忽略，同时浏览器可能会向你展示一个警告。请记住，.passive 会告诉浏览器你不想阻止事件的默认行为

@@ -1,0 +1,27 @@
+在vue中, 一切以 v- 开头的都是指令: directive
+
+插值表达式, Mustache语法也被称为小胡子语法:   {{ msg }}
+
+1.v-cloak
+	v-cloak的特点是当数据渲染完成后自动显示,解决插值表达式闪烁的问题, 让标签元素默认隐藏
+2.v-text
+	将数据以纯文本的方式渲染到指定标签内部, 会  **直接覆盖**  标签内部的内容
+	例:   <p v-text="hello"></p>
+3.v-html
+	同v-text, 区别在于可以渲染HTML标签
+	例:   <p v-html="hello"></p>
+4.v-bind
+	做属性绑定的指令, 在标签中绑定title属性: 如果使用了属性绑定, 属性值就会被解析成JS表达式, 所以msg必须在vm实例的data中定义好, 否则会报错
+	例:   <input v-bind:title="msg" />
+	该指令使用非常频繁, 所以有简写形式 是 冒号  :
+	例:   <input :title="msg" />
+	而且v-bind可以绑定原生的dom属性, 也可以绑定自定义属性
+5.v-on
+	做事件绑定的指令, 简写形式 是 艾特符号 @
+	例:   <input @mouseover="clickHandler" v-on:click="clickHandler" />
+	       clickHandler必须在vue实例的 methods 节点中定义
+	如果需要绑定其他事件, 将click换成其他事件名即可
+6.v-model
+	注意: 这是唯一一个实现双向数据绑定的指令, 而且只能用于表单元素, 不需要指定属性, 只能绑定value属性
+	例:   <input type="text" style="width:100%;" v-model="msg">
+	       如果双向数据绑定, 一定要先在data中定义好msg
