@@ -1,0 +1,65 @@
+vue动画
+	在vue中使用过渡类名完成动画的几个阶段, 其中涉及到6个类名:
+		1.v-enter
+			设置元素执行入场动画前的样式
+		2.v-enter-to
+			设置元素执行入场动画完毕后的样式
+		3.v-leave
+			设置元素执行离场动画前的样式
+		4.v-leave-to
+			设置元素执行离场动画完毕后的样式
+		5.v-enter-active
+			设置元素在执行入场动画时的样式
+		6.v-leave-active
+			设置元素在执行离场动画时的样式
+
+	使用动画的步骤:
+		1.先在需要加动画的元素(必须得是单元素)外, 包裹一个transition标签, 是由Vue提供的组件
+			例:   <transition>
+				<h1 v-if="flag">好好学习</h1>
+			       </transition>
+		2.添加类样式, 设置动画的过渡属性
+			例:   .v-enter,
+			       .v-leave-to {
+  				opacity: 0;
+  				transform: translateX(200px)
+			       }
+
+			       .v-enter-active, 
+			       .v-leave-active {
+  				transition: all 0.5s ease;
+			       }
+		3.如果想书写样式时, 不使用默认的v-开头, 可以在transition标签中声明name属性即可, 这个name属性就是类样式的前缀
+		   用于多个动画场景, 例如: p标签需要平移动画, h1标签需要淡入淡出动画, 为了避免类名冲突, 最好自定义前缀
+			例:   <transition name="tt">
+  				<h1 v-if="flag">天天向上</h1>
+			       </transition>
+		   类样式前缀也要同时修改:
+			例:   .tt-enter,
+ 			       .tt-leave-to {
+  				opacity: 0;
+  				transform: translateX(200px)
+			       }
+
+			       .tt-enter-active, 
+			       .tt-leave-active {
+  				transition: all 0.5s ease;
+			       }
+		二、列表动画
+		      不同于单元素动画, 如果是使用v-for循环渲染出来的列表, 需要使用 transition-group 标签包裹
+			例:   <transition-group>
+    			       	<li v-for="(item, i) in list" :key="item.id" @click="del(i)">
+     				 	{{item.id}} --- {{item.name}}
+    			       	</li>
+			       </transition-group>
+		      其他地方同上, 也需要设置过渡的类样式
+			例:   .v-enter,
+			       .v-leave-to {
+  				opacity: 0;
+ 				transform: translateY(50px)
+			       }
+
+		  	       .v-enter-active, 
+			       .v-leave-active {
+  				transition: all 0.5s ease;
+			       }

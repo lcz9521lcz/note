@@ -1,0 +1,24 @@
+vue-resource的使用---请求数据
+	使用方法:
+		1.在vue.js文件后引入
+			例:   <script src="./lib/vue-2.4.0.js"></script>
+			       <script src="./lib/vue-resource-1.3.4.js"></script>
+
+		2.当引入完成文件后, 在vue对象中就会有一个属性: $http
+			a.发送get请求:   
+				vm.$http.get( 参数1: URL, 参数2: 配置对象 ).then(result => {   // 请求成功的结果   })
+				配置对象中可以设置一个params属性, 也是一个对象, 用于设置get请求的query参数
+				例:   vm.$http.get('url', {}).then(result => {   // 请求成功的结果   })
+			b.发送post请求:
+				vm.$http.post( 参数1: URL, 参数2: 表单数据, 参数3: 配置对象 )
+				一般使用post请求时, 配置对象中最好开启emulateJSON: true, 该配置会将表单数据以传统表单格式提交: 
+				application/x-www-form-urlencoded  的  Content-Type
+				例:   vm.$http.post('url', {name: 'zs'}, {emulateJSON: true}).then(result => {  // 请求成功的结果  })
+		3.全局配置
+			由于在项目开发中, 请求的api根路径一般都是相同的, 而且为了便于后期修改, 需要将请求的根路径进行全局配置:
+				例:   Vue.http.options.root = '/root'
+			注意:   如果配置了全局的根路径, 想让其生效, 发送请求时URL必须是相对路径
+				例:   vm.$http.get('url'), 而不是 vm.$http.get('/url')
+			由于在项目开发中, 每次提交表单数据都需要使用传统表单提交, 所以需要将emulateJSON选项全局开启:
+				例:   Vue.http.options.emulateJSON = true
+			当开启了全局的emulateJSON选项后, 以后发送post请求, 第三个参数就不需要再配置emulateJSON选项了
