@@ -63,3 +63,30 @@ vue动画
 			       .v-leave-active {
   				transition: all 0.5s ease;
 			       }
+
+列表动画的其他属性
+	列表元素同时过渡
+		例如将数组中的元素删除时, 其他元素也一起执行动画, 此时所有元素都会加上 v-move 类名, 当前被删除的元素会加上 v-leave-active 类名
+			.v-move
+			.v-leave-active
+		所以只需要在v-move中开启过渡, v-leave-active中开启绝对定位即可
+			.v-move {
+ 		 	        transition: all .8s ease;
+			}
+			.v-leave-active{
+  			        position: absolute;
+			}
+	appear属性
+		列表加载时执行动画
+			<transition-group appear>
+				<li v-for="(item, i) in list" :key="item.id" @click="del(i)">
+					{{item.id}} --- {{item.name}}
+				</li>
+			</transition-group>
+	tag属性
+		由于transition-group默认会渲染一个span标签包裹, 如果需要自定义标签, 可以通过tag属性来设置:
+			<transition-group appear tag="ul">
+				<li v-for="(item, i) in list" :key="item.id" @click="del(i)">
+					{{item.id}} --- {{item.name}}
+				</li>
+			</transition-group>
