@@ -1,0 +1,8 @@
+webpack4的基本使用
+	1.打包---会自动创建输出目录
+		webpack 入口文件 --output  输出文件
+		例:   webpack main.js -o ./dist/main.js
+	-d 参数可以指定当前的模式为development(开发模式), 即不压缩
+		webpack main.js -o ./dist/main.js -d
+	注意:   在webpack3中不需要指定以上所有的参数, -o和-d都不需要, 但是在webpack4中必须指定 -o,
+	           如果不指定-d默认以production模式打包, 会进行压缩, 速度较慢, 开发阶段建议不要使用
