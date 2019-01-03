@@ -1,0 +1,17 @@
+nrm的使用
+	由于npm默认的服务器站点访问速度较慢, 所以之前我们使用cnpm进行包的安装
+	但是有时候cnpm装包会出现问题, 或者无法安装
+	还有另一个渠道, 使用nrm修改npm下载源地址
+		1.安装nrm
+			npm i -g nrm      或      cnpm i -g nrm
+		2.通过 nrm ls 查看所有支持的源
+			*表示当前正在使用的源
+				C:\Users\LTC>nrm ls
+				*npm ---- https://registry.npmjs.org/
+  				cnpm --- http://r.cnpmjs.org/
+		3.通过 nrm use cnpm 切换当前使用的源
+			nrm use cnpm
+			C:\Users\LTC>nrm use cnpm
+			Registry has been set to: http://r.cnpmjs.org/	
+		4.做完以上操作后, 正常使用 npm i 安装你的包即可
+					
