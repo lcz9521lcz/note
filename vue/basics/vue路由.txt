@@ -1,0 +1,101 @@
+路由
+	路由的目的是为了, 切换不同的组件, 从而实现一个HTML中对应很多组件, 也是所谓的 SPA (Single Page Application) 单页面应用程序
+	以上就是所谓的前端路由, 通过#锚点完成组件的切换标识
+
+路由的基本使用
+	1.导入vue-router的js文件
+		<script src="./lib/vue-router-3.0.1.js"></script>
+	2.创建组件的模板对象
+		// 组件的模板对象
+		var login = {
+  			template: '<h1>登录组件</h1>'
+		}
+
+		var register = {
+  			template: '<h1>注册组件</h1>'
+		}
+	3.创建路由对象, 配置路由的匹配规则
+		let router = new VueRouter({
+			// 匹配规则
+			routes: [
+				{ path: '/login', component: login },
+				{ path: '/register', component: register }
+			]
+		})
+	4.将router挂载到vm实例身上
+		let vm = new Vue({
+			el: '#app',
+			data: {},
+			methods: {},
+			router
+		
+		})
+	5.提前准备好一个"坑", 占位组件 router-view 标签
+	   router-view在哪里, 路由匹配成功后组件就会放到哪里
+		<router-view></router-view>
+
+	注意: 当vue-router包引入后, 会自动开启hash路由模式, 也就是在地址栏最后会自动加上 #/
+	
+	路由切换的原理: 地址栏的hash #/ 后面的值发生变化时, 路由会进行匹配, 将匹配的组件替换到 <router-view> 的区域中
+	结合a标签可以实现, 点击切换路由, 例如:
+		<a href="#/login">登录</a>
+		<a href="#/register">注册</a>
+
+router-link的使用
+	上面使用a标签的方式, 每次都需要在 / 前面加一个 # 不符合优雅的程序员编程习惯
+	Vue-Router也提供了一个组件来帮助我们渲染a标签: router-link 标签
+		<router-link to="/login">登录</router-link>
+		<router-link to="/register">注册</router-link>
+
+redirect的作用---重定向
+	用于设置页面加载时默认显示的组件
+	在路由匹配规则的配置中使用path+redirect属性来设置重定向的组件:
+		routes: [
+			{ path: '/', redirect: '/login' },
+			{ path: '/login', component: login },
+		]
+	
+当前选中的路由链接高亮
+	router-link 默认会有切换时的类样式, 当前显示的路由, 默认加上的类名为: router-link-active
+	我们可以自己添加css类样式完成当前路由高亮的效果
+	除此之外, 还可以将默认值修改为自定义的类名:
+	在路由的构造选项中, 通过 linkActiveClass 设置自定义类名
+		linkActiveClass: 'myactive'
+
+路由传参-query
+	与后端路由传参方式一样, 在链接最后加上 ? 传参
+		<router-link to="/login?name=zs&age=18"></router-link>
+	query传参的特点是, 路由匹配规则和 /login 一样, 不需要做额外的修改
+		var router = new VueRouter({
+  			routes: [
+    				{ path: '/login', component: login },
+    				{ path: '/register', component: register }
+  			]
+		})
+	在login组件内部, 根据 组件实例.$route.query 获取query对象
+		this.$route.query.name
+	如果需要把参数渲染到页面, 由于以前使用data中的数据渲染到页面, 可以省略this, 这里同理, 如果需要使用插值表达式进行渲染:
+		{{ $route.query.name }}
+	
+路由传参-params
+	这种方式需要在路由匹配中定义好才可以使用 :id
+		var router = new VueRouter({
+  			routes: [
+    				{ path: '/login/:id/:name', component: login },
+    				{ path: '/register', component: register }
+  			]
+		})
+	定义好了路由规则之后, 可以直接在URL中进行传参了:
+	注意: 必须完整匹配
+		<router-link to="/login/1/ls"></router-link>
+	在login组件实例中可以使用 $route.params.id 获取参数
+		this.$route.params.id
+		this.$route.params.name
+	如果需要渲染到页面也可以通过插值表达式进行渲染
+
+路由嵌套(子路由)
+	先在路由匹配规则中, 通过children属性来确定路由之间的关系:
+	注意: 如果在写子路由的匹配规则, 需要注意, path前面不能加 / 如果加 /表示直接匹配 /login,
+	        而我们期望的是匹配 /account/login, 所以不能在子路由的规则前面加上 / 必须是相对路径,
+	        如果期望就是 /login, 那么就可以在前面加上 /
+	匹配规则书写完后, 还需要在account组件中, 放置一个 <router-view></router-view> 组件, 用于切换子路由的登录注册组件
