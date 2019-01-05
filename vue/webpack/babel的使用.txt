@@ -1,0 +1,15 @@
+babel的使用
+	1.装核心包和loader的包
+	   注意事项: 由于babel-loader和babel-core已经更新, babel-core换了个包名, 最新版的包名是@babel/core,
+	   最新版本的babel-core必须结合最新版本的babel-loader使用, 也就是babel-core7结合babel-loader8使用,
+	   而npm i babel-loader babel-core -D 这个指令安装的是babel-loader8 和 babel-core6, 所以会导致babel无法使用,
+	   需要手动将babel-loader的版本降为 7
+		例:   npm i babel-loader@7 babel-core -D
+	2.装语法的包
+		由于babel默认只能将一部分ES6语法转为ES5, 所以还需要根据自身的需求选择语法预设 (preset)
+		必须要装的是env, stage-X可以选装, 但是如果需要用更高级的ES6语法, 建议都装
+		不推荐使用最新版本的插件而放弃stage, 这样你会多很多工作
+			例:   npm i babel-preset-env babel-preset-stage-0 -D
+	3.在webpack.config.js中配置好loader
+	4.在项目根目录新建一个.babelrc配置文件, 并在其中配置好语法预设
+		例:   {  "presets": ["env", "stage-0"]  }
