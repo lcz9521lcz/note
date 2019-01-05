@@ -1,0 +1,33 @@
+ES6的export和export default
+	在同一个目录中有两个js文件: m1.js 和 m2.js
+	在ES6中, 导入和导出的语法一共就4种方式:
+		import *** from *** 例如: import $ from 'jquery'
+		import *** 例如: import './css/1.css'
+		export
+		export default
+	由于开发中会用到模块化, 所以在一个js文件中定义的成员, 需要向外暴露, 就可以使用export或export default
+		1.export default 介绍
+		   一个js文件, 只能通过 export default 向外暴露一次
+		   通过 export default 暴露的对象, 可以在 import 的时候手动指定变量名接收, 不需要考虑导出时的变量, 
+		   相当于直接把整个数据导出了
+		   案例: 在m1.js中导出一个对象, 在m2.js中接收
+			m1.js
+				export default {
+					name: '张三',
+					age: 18
+				} 
+			m2.js
+				import person from './m1.js'
+		2.export 介绍
+		   一般将export称为按需导出
+		   在一个js文件中, 可以通过export向外暴露多个成员
+		   通过 export 暴露的成员, 必须定义名称, 而且其他地方导入的时候, 必须按照导出时定义名称来选择导入
+		   导入时可以通过 as 起别名
+		   案例: 在m1.js中导出多个数据, 在m2.js中接收
+			m1.js
+				export let name = '李四'
+				export let age = 18
+				export let gender = '男'
+				export let obj = { name: '对象的名字' }
+			m2.js
+				import { name, age, obj as o } from './m1.js'
