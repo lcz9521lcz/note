@@ -1,0 +1,22 @@
+在webpack中使用vue-router
+	1.装包
+		npm i vue-router -S
+	2.导入vue-router包并安装到vue身上
+		import Vue from 'vue'
+		import VueRouter from 'vue-router'
+		// 手动安装到vue身上
+		Vue.use(VueRouter)
+	3.创建路由对象
+		import account from './componets/account.vue'
+		let router = new VueRouter({  
+			routes: [   //配置路由规则
+				{ path: '/account', component: account }
+			]
+		})
+	4.将路由对象挂载到vm实例
+		let vm = new Vue({
+			el: '#app',
+			data: {},
+			router
+		})
+	小结:   装包---导包---创建路由对象---将路由对象挂载到vm实例
