@@ -1,0 +1,30 @@
+VSCode快捷键
+	1.向上/下移动代码片段
+
+
+	   alt + 上箭头或下箭头
+
+	2.向上/下复制代码片段
+
+
+	   alt + shift + 上箭头或下箭头
+
+	3.换至下一行
+	   
+
+ctrl + enter
+
+	4.换至上一行
+
+
+	   ctrl + shift + enter
+
+	5.删除选中行
+
+
+	   ctrl + shift + k
+
+	6.关闭当前窗口
+
+---通用
+	   ctrl + w
