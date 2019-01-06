@@ -1,0 +1,58 @@
+使用webpack引入vue
+	1.安装
+		npm i vue -S
+	2.在main.js中引入vue
+	   注意: 如果在main.js中直接引入安装好的vue, 那么默认会引入vue.runtime.common.js而非完整版的vue.js文件
+  	   vue包的package.json中配置的main节点如下:
+		"main": "dist/vue.runtime.common.js"
+	3.在引入vue之前, 先给vue引入起个别名, 指向完整版的vue.js文件
+	   在webpack.config.js的配置对象中, 新增一个resolve节点, 添加alias属性
+		resolve: {
+    			alias: {
+      				'vue$': 'vue/dist/vue.js'
+    			}
+		}
+	4.在main.js中直接引入vue
+		import Vue from 'vue'
+
+模块化vue组件
+	1.装包
+		npm i vue-loader vue-template-compiler -D
+	2.在webpack配置文件中添加匹配规则
+		{ test: /\.vue$/, use: 'vue-loader'}
+	3.在webpack添加VueLoaderPlugin插件
+	   注意: 这一个插件是必须的!
+		const VueLoaderPlugin = require('vue-loader/lib/plugin')
+		plugins: [ // 插件配置项
+			new VueLoaderPlugin()
+		]
+	4.新建vue文件---login.vue
+	   注意: vue文件内部有三个节点, 分别是 <template></template> 和 <script></script> 还有 <style></style>
+	   分别表示HTML模板, js代码, 样式, template节点下只能有一个根元素
+	   	例:   <template>
+  			<div>
+    				<h1>这是通过vue文件写的登录组件!!!</h1>
+  			</div>
+		       </template>
+		       <script>
+			export default {
+  
+			}
+		       </script>
+		       <style scoped>
+			h1 {
+  				color: pink;
+			}
+		       </style>
+	5.在main.js中导入login.vue文件, 以变量接收对象
+		import login from './src/login.vue'
+	6.使用render函数渲染login组件
+		let vm = new Vue({
+  			el:'#app',
+  			data: {
+    				msg: 'xxx'
+  			},
+  			render: c => c(login)
+		})
+	注意: 使用render函数渲染组件, 可以使用vue.runtime.common.js的vue包, 不会报错
+	        不过render函数的特点是将app盒子直接替换成login组件
