@@ -1,0 +1,21 @@
+mui滑动插件的bug处理方案
+	babel的目的是将ES6或更高级的语法转换为ES5的语法
+	在使用babel5以上时, 默认会将每个js文件加上 'use strict' 开启严格模式, 而mui中使用了arguments, 所以会报错
+	方案1: 放弃mui   舍弃
+	方案2: 关闭babel默认开启的严格模式   目前版本(babel6及以上) 已经无法通过插件关闭严格模式了  故 舍弃
+	方案3: 忽略某个文件   采用此方案
+	在.babelrc的配置文件中, 添加ignore节点:
+		{
+  			"presets": [
+    				["env", {
+      					"modules": false,
+      					"targets": {
+        						"browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+      					}
+    				}],
+    				"stage-2"
+  			],
+  			"ignore": [
+    				"./src/lib/mui/js/mui.js"
+  			]
+		}
