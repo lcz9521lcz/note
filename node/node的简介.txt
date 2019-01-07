@@ -1,0 +1,15 @@
+node的简介
+	前后端分离:
+	前端负责写页面, 和发送ajax请求获取数据, 通过模板引擎进行渲染
+	后端负责写接口, 提供数据
+	
+	node环境的JavaScript
+	不同于浏览器中js, 不存在DOM和BOM的概念
+	以前所说的js的组成: ECMAScript + BOM + DOM, 其实是指在浏览器中JS的组成
+
+	共同点: 只要是js, 都会遵循ECMAScrit规范
+	node环境的js组成: ECMAScript + 全局成员 + 内置模块 + 第三方模块
+	npm: node package manager (node包管理器)
+
+	使用node运行js
+	打开终端(Windows控制台) , cmd
